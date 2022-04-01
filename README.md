@@ -1,2 +1,2 @@
 # AICourse_Fashion
-Ai Course fashion mnist_task.
+AI Course fashion mnist_task.
