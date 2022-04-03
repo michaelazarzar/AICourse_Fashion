@@ -11,7 +11,7 @@ def landing():
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
-    print(f'************{request.method}')
+    
     if request.method == "POST":
         if request.files:
             image = request.files["image"]
