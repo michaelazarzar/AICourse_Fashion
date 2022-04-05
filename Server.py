@@ -2,11 +2,12 @@ from flask import Flask, render_template, request
 import os
 import onnxruntime as ort
 import numpy as np
+from PIL import Image
 
 app = Flask(__name__)
 
 app.config["IMAGE_UPLOADS"] = './Upload/'
-onnx_model = ort.InferenceSession('model.onnx')
+onnx_model = ort.InferenceSession('./models/model.onnx')
 input_name = onnx_model.get_inputs()[0].name
 output_name = onnx_model.get_outputs()[0].name
 
@@ -23,16 +24,20 @@ def upload_image():
     if request.method == "POST":
         if request.files:
             image = request.files["image"]
+            print(f'image type ****{type(image)}')
             image_path = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
             image.save(image_path)
+            print(make_predict(image_path))
             return render_template("Upload.html", uploaded_image=image.filename)
     return render_template("Upload.html")
 
 
 #TODO use this method to make the prediction when we ready with model.
-def make_predict(image):
+def make_predict(image_path):
     #input_shape = np.zeros([None, 28, 28,1], np.int8)
-    #onnx_model = ort.InferenceSession('model.onnx')
+
+    image = Image.open(image_path).convert('L')
+    image = np.stack((image,)*3, axis=-1)
     return onnx_model.run([output_name], {'input1': image})
     
 
