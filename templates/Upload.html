@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Upload Image For Prediction</title>
+    <title>Upload Face with ID</title>
 </head>
 <body>
     <form action="/upload" method="POST" enctype="multipart/form-data">
@@ -19,6 +19,12 @@
 
 
     <img src="{{ url_for('send_uploaded_file', filename=uploaded_image) }}" />
-
+    
+    <div class="result" align="left">
+     {% if prediction_label %}
+         <br> Prediction label:
+         <p style="font-size:20px">{{ prediction_label }}</p>
+     {% endif %}
+ </div>
 </body>
 </html>
