@@ -11,12 +11,15 @@ onnx_model = ort.InferenceSession('./models/model.onnx')
 input_name = onnx_model.get_inputs()[0].name
 output_name = onnx_model.get_outputs()[0].name
 
-print(f'Model input name{input_name}')
-print(f'Model output name{output_name}')
+print(f'Model input name = {input_name}')
+print(f'Model output name = {output_name}')
+
+labels = {0: 'T-shirt/top', 1: 'Trouser', 2: 'Pullover', 3: 'Dress', 4: 'Coat', 5: 'Sandal', 6: 'Shirt',
+          7: 'Sneaker', 8: 'Bag', 9: 'Ankle boo' } 
 
 @app.route('/', methods=['GET', 'POST'])
 def landing():
-    return 'Welcome to landing page!'
+    return 'Welcome to landing page!<br>To redirect add to URL /upload'
 
 @app.route('/upload', methods=['GET', 'POST'])
 def upload_image():
@@ -27,21 +30,22 @@ def upload_image():
             print(f'image type ****{type(image)}')
             image_path = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
             image.save(image_path)
-            print(make_predict(image_path))
-            return render_template("Upload.html", uploaded_image=image.filename)
+            prediction = make_predict(image_path)
+            return render_template("Upload.html", uploaded_image=image.filename, prediction_label = prediction)
     return render_template("Upload.html")
 
 
-#TODO use this method to make the prediction when we ready with model.
 def make_predict(image_path):
-    #input_shape = np.zeros([None, 28, 28,1], np.int8)
 
     image = Image.open(image_path).convert('L')
-    image = np.stack((image,)*3, axis=-1)
-    return onnx_model.run([output_name], {'input1': image})
     
+    image = np.stack((image,)*1, axis=-1).astype(np.float32)
+    image = np.stack((image,)*1, axis=0).astype(np.float32)
+    
+    hist = onnx_model.run([output_name], {input_name: image})
 
-
+    return labels.get(np.argmax(hist))
+    
 
 
 @app.route('/uploads/<filename>')
