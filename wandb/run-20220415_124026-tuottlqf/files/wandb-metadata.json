@@ -1,0 +1,24 @@
+{
+    "os": "Windows-10-10.0.19041-SP0",
+    "python": "3.8.8",
+    "heartbeatAt": "2022-04-15T09:40:37.991758",
+    "startedAt": "2022-04-15T09:40:26.294028",
+    "docker": null,
+    "cpu_count": 4,
+    "cuda": null,
+    "args": [
+        "-f",
+        "C:\\Users\\Avi\\AppData\\Roaming\\jupyter\\runtime\\kernel-7f4768b0-f685-4992-ab6e-c2374cdfb7c9.json"
+    ],
+    "state": "running",
+    "program": "git/AICourse_Fashion/Model_creation.ipynb",
+    "root": "C:/Users/Avi/git/AICourse_Fashion",
+    "git": {
+        "remote": "https://github.com/michaelazarzar/AICourse_Fashion.git",
+        "commit": "908ae99f454ee08fbae94ee9bb97f4f9f30a58be"
+    },
+    "email": "avi@coca-int.com",
+    "host": "COCA",
+    "username": "Avi",
+    "executable": "C:\\Users\\Avi\\anaconda3\\python.exe"
+}

@@ -1,0 +1,59 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.11
+    framework: tensorflow
+    is_jupyter_run: true
+    is_kaggle_kernel: false
+    python_version: 3.8.8
+    start_time: 1650015632
+    t:
+      1:
+      - 3
+      3:
+      - 3
+      - 8
+      - 19
+      4: 3.8.8
+      5: 0.12.11
+      8:
+      - 1
+      - 3
+      - 5
+      10:
+      - 1
+activation:
+  desc: null
+  value: relu
+batch_size:
+  desc: null
+  value: 256
+epochs:
+  desc: null
+  value: 25
+img_height:
+  desc: null
+  value: 28
+img_width:
+  desc: null
+  value: 28
+learning_rate:
+  desc: null
+  value: 0.05
+num_classes:
+  desc: null
+  value: 10
+optimizer:
+  desc: null
+  value: Adam
+seed:
+  desc: null
+  value: 10
+validation_size:
+  desc: null
+  value: 5000
+weight_decay:
+  desc: null
+  value: 0.0005
