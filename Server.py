@@ -27,24 +27,24 @@ def upload_image():
     if request.method == "POST":
         if request.files:
             image = request.files["image"]
-            print(f'image type ****{type(image)}')
             image_path = os.path.join(app.config["IMAGE_UPLOADS"], image.filename)
             image.save(image_path)
-            prediction = make_predict(image_path)
-            return render_template("Upload.html", uploaded_image=image.filename, prediction_label = prediction)
+            prediction, probability = make_predict(image_path)
+            return render_template("Upload.html", uploaded_image=image.filename, prediction_label = prediction, probability = probability)
     return render_template("Upload.html")
 
-
+# Return label and probability
 def make_predict(image_path):
-
+    # Prepare the image to prediction.
     image = Image.open(image_path).convert('L')
     
     image = np.stack((image,)*1, axis=-1).astype(np.float32)
     image = np.stack((image,)*1, axis=0).astype(np.float32)
     
     hist = onnx_model.run([output_name], {input_name: image})
-
-    return labels.get(np.argmax(hist))
+    max_val = np.argmax(hist)
+    probability = np.max(hist) * 100
+    return labels.get(max_val), probability
     
 
 

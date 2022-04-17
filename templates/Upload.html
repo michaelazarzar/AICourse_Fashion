@@ -23,8 +23,12 @@
     <div class="result" align="left">
      {% if prediction_label %}
          <br> Prediction label:
-         <p style="font-size:20px">{{ prediction_label }}</p>
+         <p  style="font-size:20px">{{ prediction_label }}</p>
      {% endif %}
- </div>
+     {% if probability %}
+         <br> With probability of:
+         <p  style="font-size:20px">{{ probability }}</p>
+     {% endif %}
+     </div>
 </body>
 </html>
